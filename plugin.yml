@@ -1,0 +1,6 @@
+name: CrashAndBan
+main: jasonwynn10\CrashAndBan\Main
+version: 0.1.0
+api: 3.0.0
+description: "A plugin designed to crash the client of any banned player"
+author: "jasonwynn10"
