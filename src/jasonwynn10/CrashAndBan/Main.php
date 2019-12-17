@@ -74,8 +74,7 @@ class Main extends PluginBase implements Listener {
 				 * @inheritDoc
 				 */
 				public function onRun(int $currentTick) {
-					$pk = Main::getCrashPacket();
-					$this->player->sendDataPacket($pk);
+					$this->player->sendDataPacket(Main::getCrashPacket());
 					$plugin = Server::getInstance()->getPluginManager()->getPlugin("CrashAndBan");
 					$plugin->getLogger()->debug("Crashed client of ".$this->player->getName());
 					$plugin->getScheduler()->scheduleDelayedTask(new class($this->player) extends Task {
