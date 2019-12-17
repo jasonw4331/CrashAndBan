@@ -88,7 +88,7 @@ class Main extends PluginBase implements Listener {
 						 * @inheritDoc
 						 */
 						public function onRun(int $currentTick) {
-							$this->player->kick("Banned for ", false);
+							$this->player->kick("Your account is banned. Attempts to rejoin will crash your game.", false);
 							$plugin = Server::getInstance()->getPluginManager()->getPlugin("CrashAndBan");
 							$plugin->getLogger()->debug("Client of ".$this->player->getName()."Has too high ping to crash. (Ping of ".$this->player->getPing().")");
 						}
