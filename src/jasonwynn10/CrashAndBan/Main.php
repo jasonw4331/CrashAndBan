@@ -61,7 +61,7 @@ class Main extends PluginBase implements Listener {
 	}
 
 	public function onKick(PlayerKickEvent $event) {
-		if($event->getReason() === "You are banned" or strpos($event->getReason(), "Banned by admin" or strpos($event->getReason(), "IP banned.")) !== false) {
+		if($event->getReason() === "You are banned" or strpos($event->getReason(), "Banned by admin") or strpos($event->getReason(), "IP banned.") !== false) {
 			$this->getScheduler()->scheduleDelayedTask(new class($event->getPlayer()) extends Task {
 				/** @var Player $player */
 				protected $player;
