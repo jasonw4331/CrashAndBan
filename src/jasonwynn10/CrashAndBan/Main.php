@@ -7,21 +7,21 @@ use pocketmine\block\BlockFactory;
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerKickEvent;
 use pocketmine\item\ItemBlock;
-use pocketmine\network\mcpe\protocol\InventoryContentPacket;
-use pocketmine\network\mcpe\protocol\types\ContainerIds;
+use pocketmine\network\mcpe\protocol\CreativeContentPacket;
+use pocketmine\network\mcpe\protocol\types\inventory\CreativeContentEntry;
 use pocketmine\Player;
 use pocketmine\plugin\PluginBase;
 use pocketmine\scheduler\Task;
 use pocketmine\Server;
 
 class Main extends PluginBase implements Listener {
-	/** @var InventoryContentPacket $pk */
+	/** @var CreativeContentPacket $pk */
 	protected static $pk;
 
 	/**
-	 * @return InventoryContentPacket
+	 * @return CreativeContentPacket
 	 */
-	public static function getCrashPacket() : InventoryContentPacket {
+	public static function getCrashPacket() : CreativeContentPacket {
 		return clone self::$pk;
 	}
 
@@ -50,14 +50,12 @@ class Main extends PluginBase implements Listener {
 		};
 		BlockFactory::registerBlock($newBlock, true);
 
-		self::$pk = $pk = new class() extends InventoryContentPacket{
+		$pk = new class() extends CreativeContentPacket {
 			public function canBeSentBeforeLogin() : bool {
 				return true;
 			}
 		};
-		$pk->items = [];
-		$pk->items[] = new ItemBlock(511, 0, 255-511);
-		$pk->windowId = ContainerIds::CREATIVE;
+		self::$pk = $pk::create([new CreativeContentEntry(1, new ItemBlock(511, 0, 255-511))]);
 	}
 
 	public function onKick(PlayerKickEvent $event) {
